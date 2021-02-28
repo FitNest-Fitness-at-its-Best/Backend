@@ -63,7 +63,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'challenges_app.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {

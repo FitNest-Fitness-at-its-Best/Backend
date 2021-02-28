@@ -35,7 +35,7 @@ class UserHealthParam(models.Model):
 
 class UserFoodLog(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     serving = models.IntegerField()
     calories = models.FloatField(default=0.0)
     carbs = models.FloatField(default=0.0)

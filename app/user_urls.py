@@ -2,7 +2,6 @@ from django.urls import path, include
 from .views import (
     GoogleSignInView,
     LogoutView,
-    UpdateInstaHandle,
 )
 from rest_framework import routers
 

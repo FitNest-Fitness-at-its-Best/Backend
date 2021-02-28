@@ -9,7 +9,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
 
 from .models import User
-from .serializers import QuestionSerializer
 
 # View for Admin Signup
 class AdminSignupView(APIView):

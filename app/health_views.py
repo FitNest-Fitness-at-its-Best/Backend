@@ -1,12 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework import generics
 
 from .models import (
     UserFoodLog
 )
 
+from .ml_model import get_image_name
 
 from .serializers import (
     UserFoodLogSerializer
@@ -14,14 +15,14 @@ from .serializers import (
 
 
 class UserFoodLogView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = UserFoodLog.objects.filter(user=request.user).order_by('-added_on')
+    # permission_classes = [IsAuthenticated]
+    queryset = UserFoodLog.objects.all().order_by('-added_on')
     serializer = UserFoodLogSerializer
 
 class AddingUserFoodLogView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def image_processing(self, image):
-        pass
+        return get_image_name(image)
 
     def post(self, request):
         image = request.FILES['food_image']
@@ -35,10 +36,10 @@ class AddingUserFoodLogView(APIView):
             }, status=404)
 
 class EditingFoodLogView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def post(self, request):
         try:
-            obj = UserFoodLog.objects.get(id=request.data.get('id')
+            obj = UserFoodLog.objects.get(id=request.data.get('id'))
         except Exception as e:
             print(e)
             return Response({

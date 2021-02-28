@@ -26,7 +26,11 @@ class AddingUserFoodLogView(APIView):
 
     def post(self, request):
         image = request.FILES['food_image']
-        output = self.image_processing(image)
+        with open(image.name, 'wb+') as destination:
+            for chunk in image.chunks():
+                destination.write(chunk)
+        
+        output = self.image_processing(image.name)
         if output:
             return Response(output)
         else:
